@@ -18,7 +18,7 @@ Quelques emplacements importants pour avoir des infos sur les peripheriques.
 /proc/usb
 etc...
 
-I.1 Utilitaires pour les peripheriques
+**I.1 Utilitaires pour les peripheriques**
 
 -lsmod
 Liste tous les modules(pilotes) du noyau
@@ -81,5 +81,12 @@ Liste des niveaux d'execution  de systemd
 5--> graphical.target(mode graphique et multi-utilisateurs)
 6--> reboot(mode redemarrage)
 
-Repertoire de systemed : /usr/lib/systemd/
+Par exemple le dossier /etc/init.d/ contient tous les scripts actifs apres le demarrage de notre systeme Gnu/Linux.
+Aussi tous les scripts du dossier /etc/rc3.d/ sont ceux qui s'executent dans le mode 3(multi-utilisateur).
+Certains noms de scripts commencent par la lettre S sont ceux de demarrage et les autres avec la lettre K sont les scripts d'arret.
+
+Les majeurs composants de systemd sont:
+#systemd: gestionaire des services et du systeme
+#systemctl: la commande principale permettant de controler tous les services(activer-arreter-redemarrer-status)
+#systemd-analyze:
 
