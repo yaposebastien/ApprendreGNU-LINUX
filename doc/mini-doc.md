@@ -1,9 +1,11 @@
-Apprendre GNU-LINUX
-------------------
-------------------
+#Apprendre les commandes de base de GNU/LINUX avec Python
 
-C'est un petit logiciel pour apprendre GNU-LINUX avec Python.
-Il permet de reviser les commandes de base du systeme.
+##Table des matières
+1. Architecture du système
+1. Installation de GNU/LINUX et des logiciels
+1. Commandes GNU et Unix
+
+
 
 I. Architecture du systeme
 Tout est considere comme fichier sous GNU/LINUX
