@@ -85,8 +85,45 @@ Par exemple le dossier /etc/init.d/ contient tous les scripts actifs apres le de
 Aussi tous les scripts du dossier /etc/rc3.d/ sont ceux qui s'executent dans le mode 3(multi-utilisateur).
 Certains noms de scripts commencent par la lettre S sont ceux de demarrage et les autres avec la lettre K sont les scripts d'arret.
 
-Les majeurs composants de systemd sont:
+Quelques  majeurs composants de systemd sont:
 #systemd: gestionaire des services et du systeme
-#systemctl: la commande principale permettant de controler tous les services(activer-arreter-redemarrer-status)
-#systemd-analyze:
+#systemctl: la commande principale permettant de controler tous les services(activer-arreter-redemarrer-verifier status)
+#systemd-analyze: permet d'afficher les performances de votre systeme lors du demarrage.
+#networkctl: permet d'afficher les differentes connexion reseaux de votre systeme et leur status(avec option -a)
+#journalctl: permet d'afficher le journal des evenements systeme de  systemd
+
+Le dossier /etc/systemd/system/ contient tous les services essentiels et qui ont une priorite tres elevee mais controles par l'administrateur systeme.
+Le dossier /usr/lib/systemd/system contient tous les services installes par l'utilisateur
+
+La liste de quelques services et leur extensions
+.service --> service system, .swap --> relatif au swap, .socket --> IPC socket(inter-process communication), .timer, etc.
+
+#runlevel
+Affiche le niveau d'execution precedent et courant
+
+#systemctl get-default
+Affiche la valeur assignee par defaut de notre niveau d'execution
+
+#systemctl set default [nom de votre niveau d'execution]
+Assigner la valeur par defaut du niveau d'execution
+
+#systemctl list-units --type=target
+Affiche tous les services systeme actifs
+
+#systemctl list-unit-file
+Affiche tous les services systemes installes et leur status
+
+#systemctl isolate [niveau execution]
+Modifie le niveau d'execution sans changer la valeur assignee par defaut.
+
+Comme la commande #runlevel , init, telinit permettent aussi de changer le niveau d'execution avec sysvinit
+
+#reboot : redemarre le systeme
+#shutdown : arrete et redemarre le systeme
+        shutdown -h now(arrete maintenant)
+        shutdown -r (redemarre)
+        shutdown -r #temps (redemarre apres une periode de temps specifie)
+        shutdown -c (permet d'annuler le redemarrage)
+        shutdown -r 10 -k "Veullez sauvegarder vos fichiers" (va redemarrer la machine dans 10 minutes et envoyer un message a tous les utilisateurs)
+
 
