@@ -1,24 +1,25 @@
 #Apprendre les commandes de base de GNU/LINUX avec Python
 
 ##Table des matières
-1. Architecture du système
-1. Installation de GNU/LINUX et des logiciels
-1. Commandes GNU et Unix
+1. 101: Architecture du système
+1. 102: Installation Linux et gestion des paquets
+1. 103: Commandes GNU et Unix
+1. 104: Périphériques, systèmes de fichiers Linux, norme de hiérarchie du système de fichiers
 
 
 
-I. Architecture du systeme
-Tout est considere comme fichier sous GNU/LINUX
+** 101: Architecture du système
 
+Tout est considere comme fichier sous GNU/LINUX.
 Quelques emplacements importants pour avoir des infos sur les peripheriques.
 
-/proc
-/proc/mounts
-/proc/interrupts
-/proc/ioports
-/proc/dma
-/proc/usb
-etc...
+*/proc
+*/proc/mounts
+*/proc/interrupts
+*/proc/ioports
+*/proc/dma
+*/proc/usb
+
 
 **I.1 Utilitaires pour les peripheriques**
 
