@@ -1,6 +1,13 @@
-#Apprendre les commandes de base de GNU/LINUX avec Python
+Apprendre les commandes de base de GNU/LINUX avec Python3
+--------------------------------------------------------
+--------------------------------------------------------
 
-##Table des matières
+
+
+Table des matières
+------------------
+
+
 1. 101: Architecture du système
 1. 102: Installation Linux et gestion des paquets
 1. 103: Commandes GNU et Unix
