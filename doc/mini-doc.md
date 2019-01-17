@@ -28,7 +28,7 @@ Quelques emplacements importants pour avoir des infos sur les peripheriques.
 */proc/usb
 
 
-**I.1 Utilitaires pour les peripheriques**
+**101.1 Utilitaires pour les peripheriques**
 
 -lsmod
 Liste tous les modules(pilotes) du noyau
@@ -44,12 +44,15 @@ Affiche les infos sur les partitions et les disques du systeme
 #lsblk -f
 #lsblk -f -t
 #lsblk -i
+Scenario 1: Afficher la liste de partition et retrouver les infos du systeme de fichier sur un specifiquement
+$lsblk
+$lsblk --nodeps -f /dev/sda11
 
 -lspci
 Affiche les peripheriques connectes sur le slot ou port PCI
 #lspci -v
 #lspci -m
-#lspci -vm ou encore #lspci -vmm
+#lspci -vm ou encore #lspci -vmm (offre ses infos avec plus de details)
 #lspci -t
 #lspci -tvm
 
@@ -66,8 +69,9 @@ Affiche les infos sur les peripheriques USB
 #lsusb -t
 #lsusb -v
 
-I.2 Demarrage du systeme(Processus)
+101.2 Demarrage du systeme(Processus)
         sysvinit
+        C'est un package contenant u group de processus qui est responsable du control basic des fonctions du systeme. Il inclut "init" qui est la premiere application a s'executer du noyau. Init controle le demarrage, running et arret de tous les programmes.
         -------
 Les niveaux d'execution du module sysvinit(ancien module gerant le demarrage):
 0-->HALT(Arret du systeme)
@@ -82,7 +86,7 @@ Les niveaux d'execution du module sysvinit(ancien module gerant le demarrage):
         -------
 systemd est un système d’initialisation et un daemon qui a été spécifiquement conçu pour le noyau Linux comme alternative à System V. Il a pour but d'offrir un meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement en parallèle des services au démarrage, et de réduire les appels aux scripts shell.
 
-Liste des niveaux d'execution  de systemd
+Liste des niveaux d'execution  de systemd ou target
 0--> poweroff.target(arret du systeme)
 1--> rescue.target(mode mono-utilisateur et mode maintenance)
 2--> multi-user.target(pas de chargement du module graphique, mais le reseau est active et multi-utilisateurs)
@@ -95,6 +99,8 @@ Par exemple le dossier /etc/init.d/ contient tous les scripts actifs apres le de
 Aussi tous les scripts du dossier /etc/rc3.d/ sont ceux qui s'executent dans le mode 3(multi-utilisateur).
 Certains noms de scripts commencent par la lettre S sont ceux de demarrage et les autres avec la lettre K sont les scripts d'arret.
 
+101.3 Change Runlevels/Boot Targets and Shutdown or Reboot the System.
+
 Quelques  majeurs composants de systemd sont:
 #systemd: gestionaire des services et du systeme
 #systemctl: la commande principale permettant de controler tous les services(activer-arreter-redemarrer-verifier status)
@@ -103,6 +109,7 @@ Quelques  majeurs composants de systemd sont:
 #journalctl: permet d'afficher le journal des evenements systeme de  systemd
 
 Le dossier /etc/systemd/system/ contient tous les services essentiels et qui ont une priorite tres elevee mais controles par l'administrateur systeme.
+Le dossier /run/systemd/system contient tous les services installes lorsque la machine a deja demarree
 Le dossier /usr/lib/systemd/system contient tous les services installes par l'utilisateur
 
 La liste de quelques services et leur extensions
@@ -111,22 +118,37 @@ La liste de quelques services et leur extensions
 #runlevel
 Affiche le niveau d'execution precedent et courant
 
+#telint number
+Modifie le niveau d'execution de la machine exple: #telinit 0 (arret de la machine)
+
 #systemctl get-default
 Affiche la valeur assignee par defaut de notre niveau d'execution
 
+#systemctl cat graphical.target
+Affiche les details du target graphical.target
+
+#systemctl list-unit-files -t target
+Affiche tous la liste des services disponibles
+
 #systemctl set default [nom de votre niveau d'execution]
-Assigner la valeur par defaut du niveau d'execution
+Assigner la valeur par defaut du niveau d'execution exple: #systemctl set-default multi-user.target
 
 #systemctl list-units --type=target
 Affiche tous les services systeme actifs
 
-#systemctl list-unit-file
+#systemctl list-unit-files
 Affiche tous les services systemes installes et leur status
 
 #systemctl isolate [niveau execution]
 Modifie le niveau d'execution sans changer la valeur assignee par defaut.
-
 Comme la commande #runlevel , init, telinit permettent aussi de changer le niveau d'execution avec sysvinit
+
+#systemctl rescue
+Modifie notre niveau d'excecution courant pour le rescue mode
+
+#Systemctl reboot
+Permet de redemarrer la machine
+
 
 #reboot : redemarre le systeme
 #shutdown : arrete et redemarre le systeme
@@ -135,5 +157,257 @@ Comme la commande #runlevel , init, telinit permettent aussi de changer le nivea
         shutdown -r #temps (redemarre apres une periode de temps specifie)
         shutdown -c (permet d'annuler le redemarrage)
         shutdown -r 10 -k "Veullez sauvegarder vos fichiers" (va redemarrer la machine dans 10 minutes et envoyer un message a tous les utilisateurs)
+        shutdown -h 1 minute(Permet de redemarrer la machine dans une minute)
+#wall
+Permet de diffuser un message aux utilisateurs connectes a la machine
+
+Topic 102: Linux Installation and Package Management
+102.1 Conception du schéma de partitionnement
+Liste partielle de termes, fichiers et utilitaires utilisés pour cet objectif :
+
+    système de fichiers racine /
+    système de fichiers /var (les fichiers log, fichiers de donnees binaires, fichiers et repertoires partages)
+    système de fichiers /home
+    système de fichiers /boot
+    espace d'échange swap
+    système de fichiers /opt (en general pour heberges les dossiers des applications tierces comme skypeforlinux, eclipse, google, etc)
+
+#mount
+Permet de monter des partitions mais aussi d'afficher toutes les partitions
+
+#lsblk
+Affiche toutes les partitions et leur noms
+
+#fdisk -l [nom partition]
+Affiche toutes les infos d'une partition specifique exple: #fdisk -l /dev/sda
+
+#swapon --summary
+Affiche les details de notre partition swap active
+
+!Logical Volume
+Connaitre ses avantages
+ -Flexible(augmentation et reduction de la taille)
+ -Snaphots(image du volume a un instant donne essentiel pour la sauvegarde, restauration sans endommager le volume)
+ #pvs
+ Affiche toute la liste des volumes
+
+ #vgs
+Affiche tous les groupes de volumes logiques
+
+#lvs
+Affiche tous les volumes logiques
+
+102.2 Installation d'un gestionnaire d'amorçage
+
+GRUB(Legacy)
+Son dossier est /boot/grub/grub.cfg (Centos base os)
+
+GRUB2
+Quelques examples de commandes de configuration de grub2
+
+Pour Red Hat => grub2-<command>
+Pour Debian => grub-<command>
+
+#grub2-editenv list
+Affiche la liste des entrees pour le fichier de configuration de GRUB
+
+!Pour consulter le details de configuration de Grub est le fichier #/etc/default/grub
+Editer ce fichier pour modifier un parametre comme GRUB-TIMEOUT et ensuite excecuter la commande suivante
+#grub2-mkconfig
+L'equivalent de cette commande pour Debian est
+#update-grub
+
+Interaction avec l'amorceur de demarrage
+
+Pour demarrer notre machine en rescue.target
+A l'affichage de grub menu pressez [E] et rechercher la ligne linux, ensuite a la fin de cette ligne ajouter:
+--> systemd.unit=rescue.target puis pressez [F10]
+
+102.3 Gestion des bibliothèques partagées
+
+Les bibliothèques partagées contiennent des fonctionalites que les autres applications peuvent utiliser et leur extension est .so.
+Elles sont en general sauvegardees dans les repertoires suivants:
+/lib
+/usr/lib(32 bits) ou /usr/lib64(64bits)
+/usr/share
+
+Nous avons deux types de bibliothèques partagées:
+        .Dynamic(extension .so)
+        .Static(extension .a)
+
+Management des bibliothèques partagées
+
+#ldd [nom_programme]
+Affiche toutes les bibliothèques partagées d'une commande ou programme exple: $ldd /usr/local/bin/python3.6
+
+#ldconfig
+Cree les liens des repertoires contenant des recentes bibliothèques partagées et les copie dans le repertoire /etc/ld.so.conf.d/
+
+102.4 Utilisation du gestionnaire de paquetage Debian [Poids=3]
+
+->Installation, mise à jour et désinstallation des paquetages binaires Debian.
+->Recherche des paquetages contenant des fichiers ou des bibliothèques spécifiques installés ou non.
+->Obtention d'informations sur un paquetage Debian comme la version, le contenu, les dépendances, l'intégrité du paquetage, et l'état d'installation (que le paquetage soit installé ou non). 
+
+Apt(Advanced Package Tool)
+Fichier contenant les repertoires des sources des paquets a installer /etc/apt/sources.list
+
+#apt-get update
+
+#apt-get upgrade
+
+#apt-get remove [paquet]
+
+#apt-get purge [paquet]
+Desinstalle un paquet et toutes ses dependances
+
+#apt-get dist-upgrade
+Mise a jour du systeme et de tous les paquets a la prochaine version du systeme
+
+#apt-get download [paquet]
+
+#apt-get cache search [paquet]
+Permet de rechercher un paquet
+
+#apt-cache show [paquet]
+Affiche lesinfos basiques d'un paquet
+
+#apt-cache showpkg [paquet]
+Afiche plus de details techniques d'un paquet
+
+--> Utilisation de dpkg
+Installe les paquets avec l'extension .deb prealablement telecharges
+
+#dpkg --info [paquet.deb]
+Affiche les infos d'un paquet
+
+#dpkg --status [paquet]
+Affiche les infos mais avec moins de details
+
+#dpkg -l [paquet]
+Affiche infos sur paquet 
+
+#dpkg -L
+Affiche la liste de tous les paquets installes
+
+#dpkg -i [paquet.deb]
+Installe un paquet
+
+#dpkg -L [paquet]
+Affiche tous les repertoires de ce paquet
+
+#dpkg -r [paquet]
+Supprime un paquet mais laisse ses fichiers de configuration
+
+#dpkg -P [paquet]
+Supprime le paquet ainsi que ses fichiers de configuration
+
+#dpkg -S [paquet]
+Affiche repertoires et fichiers concernes par ce paquet
+
+#dpkg-reconfigure
+Autorise la modification en reexecutant ses fichiers d'application exple $dpkg console-setup
+
+#dpkg --forcedepends [paquet]
+Force l'installation d'un paquet mais avec ses dependances manquantes
+
+102.5 Utilisation des gestionnaires de paquetage RPM et YUM[Poids=3]
+    
+    -->Installation, réinstallation, mise à jour et suppression des paquetages avec RPM et YUM. 
+    -->Obtention d'informations sur un paquetage RPM comme la version, le contenu, les dépendances, l'intégrité du paquetage, la signature et l'état d'installation.
+    -->Détermination des fichiers relatifs à un paquetage donné, et recherche du paquetage auquel appartient un fichier donné. 
+
+Yum(Yellowdog Upadater and Modified)
+
+Fichier global de configuration de Yum est: /etc/yum.conf
+Repertoires de Yum : /etc/yumrepos.d/
+
+#yum update
+
+#yum search [paquet]
+
+#yum info [paquet]  
+
+#yum list installed
+Affiche la liste de tous les paquets installes
+
+#yum clean all
+Nettoie le cache pour les paquets a installer
+
+#yum install [paquet]
+
+#yum remove [paquet]
+Desinstalle un paquet
+
+#yum autoremove
+Desinstalle tous les paquets non necessaires et leurs dependances
+
+#yum whatprovides [paquet]
+Affiche tous les repertoires concernes par ce paquet
+
+#yum reinstall [paquet]
+Reinstall un paquet
+
+#yumdownloader [paquet]
+Telecharge un paquet
+
+#yumdownloader --urls [paquet]
+Affiche le lien du download
+
+#yumdownloader --destdir [paquet]
+Indique le repertoire dans lequel le fichier sera telecharge
+
+#yumdownloader --resolve [paquet]
+Resoud tous les problemes de dependances liees a ce paquet.
+
+
+Rpm(Red Hat Package Manager)
+
+La base de donnees de rpm est localisee dans le dossier suivant: /var/lib/rpm
+
+!Dans le cas ou notre base de donnees de rpm est corrompue, nous pouvons resoudre ce probleme par:
+#rpm --rebuilddb
+
+#rpm -qpi [paquet]
+Affiche les infos d'un paquet
+
+#rpm -qpl [paquet]
+Affiche la liste des fichiers de configuration d'un paquet
+
+#rpm -qa
+Affiche la liste de tous les paquets installes
+
+#rpm -ivh [paquet.rpm]
+Installe un paquet
+
+#rpm -U [paquet]
+Mise a jour d'un paquet
+
+#rpm -e paquet
+Desinstalle un paquet
+
+#rpm -Va
+Verifie tous les paquets installes(M-> difference de mode, S-> difference de la taille , C-> fichier de configuration, g-> ghost file)
+
+#rpm2cpio
+Converti un fichier rpm en cpio exple $rpm2cpio nano-2.3.1-10.el7.x86_64.rpm | cpio -idmv (conserve les permissions, la version etc...)
+
+102.6 Linux comme une machine virtuelle
+
+TOPIC 103: Commandes GNU et Unix
+
+103.1 Travail en ligne de commande(4)
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -2,6 +2,9 @@
 from __future__ import absolute_import, division, print_function
 import subprocess
 import time
+import os
+
+
 
 class ArchitectureDuSysteme(object):
     
@@ -13,7 +16,8 @@ class ArchitectureDuSysteme(object):
     
     def architectureSysteme():
         print('Le dossier "/proc" contient tous les fichiers des peripheriques')
-        time.sleep(20)
+        time.sleep(5)
+        os.execvp("ping", ["ping", "-c 3", "8.8.8.8"])
         cont_proc = subprocess.run(['ls', '-l', '/proc'])
         print(cont_proc)
 
