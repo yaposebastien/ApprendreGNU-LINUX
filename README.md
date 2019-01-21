@@ -4,9 +4,9 @@ Ce projet contient une mini-documentation sur les commandes de base du système 
 
 * [Documentation](/doc)
 1. 101: Architecture du système
-2. 102: Installation Linux et gestion des paquets
-3. 103: Commandes GNU et Unix
-4. 104: Périphériques, systèmes de fichiers Linux, norme de hiérarchie du système de fichiers
+1. 102: Installation Linux et gestion des paquets
+1. 103: Commandes GNU et Unix
+1. 104: Périphériques, systèmes de fichiers Linux, norme de hiérarchie du système de fichiers
 
 * [Script](/scripts)
  
