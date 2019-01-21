@@ -9,13 +9,13 @@ Table des matières
 
 
 1. 101: Architecture du système
-1. 102: Installation Linux et gestion des paquets
-1. 103: Commandes GNU et Unix
-1. 104: Périphériques, systèmes de fichiers Linux, norme de hiérarchie du système de fichiers
+2. 102: Installation Linux et gestion des paquets
+3. 103: Commandes GNU et Unix
+4. 104: Périphériques, systèmes de fichiers Linux, norme de hiérarchie du système de fichiers
 
 
 
-** 101: Architecture du système
+        1. 101: Architecture du système
 
 Tout est considere comme fichier sous GNU/LINUX.
 Quelques emplacements importants pour avoir des infos sur les peripheriques.
@@ -28,7 +28,7 @@ Quelques emplacements importants pour avoir des infos sur les peripheriques.
 */proc/usb
 
 
-**101.1 Utilitaires pour les peripheriques**
+                1. 101.1 Utilitaires pour les peripheriques**
 
 -lsmod
 Liste tous les modules(pilotes) du noyau
@@ -397,6 +397,133 @@ Converti un fichier rpm en cpio exple $rpm2cpio nano-2.3.1-10.el7.x86_64.rpm | c
 TOPIC 103: Commandes GNU et Unix
 
 103.1 Travail en ligne de commande(4)
+
+-->Utilisation de commandes ou de séquences de commandes pour réaliser des tâches simples en ligne de commande.
+-->Utilisation et modification de l'environnement du shell, en particulier la définition, l'export et le référencement des variables d'environnement.
+-->Utilisation et édition de l'historique des commandes.
+-->Exécution des commandes comprises ou non dans le chemin (path) par défaut. 
+
+Linux shells
+-->Bash(bourne again shell)
+-->csh(Langage C style de syntaxe)
+-->ksh(KornShell, base sous le bash avec des fonctionalites du C shelle ajoute)
+-->zsh(Z inclut tous les elements de bash et ksh)
+
+#env
+Affiche toute la liste de mes variables d'environnement
+
+#echo $[NOM_VARIABLE](en majuscule)
+Affiche la valeur cette variable d'environnement
+
+#set
+Affiche toute la liste de mes variables d'environnement
+
+#unset
+Supprime une variable ou une fonction bash
+
+#shopt
+Affiche toutes les options de notre shell courant et leurs valeurs
+
+#shopt -s [variable_shell]
+Modifie la valeur de notre variable shell exple $shopt -s hostcomplete
+
+#export 
+Commande utilisee pour une nouvelle variable d'environnement dans notre shell courant exple $export HISTSIZE=3000
+
+#pwd
+
+#which
+
+#type
+Affiche le type du parametre passe qui peut etre fichier, alias, built-in, etc
+
+Historic de Bash et Manuel d'aides
+
+#history
+
+Les pages du manuel sont divisees en plusieurs sections
+
+section1:Programmes excecutables ou commandes shell
+section2: les appels systemes fonctions fournies par le noyau
+section3: les appels librairies fonctions des librairies des programmes
+section4: fichiers speciaux en general ceux dans le fichier /dev
+section5: Format des fichiers et conventions
+section6: Jeux
+section7: Divers
+section8: Commandes de l'administration du systeme
+Section9: les routines du noyau
+
+#man -k [commande]
+Affiche toutes les sections du manuel relatives a cette commande
+
+#apropos
+Affiche toutes les sections du manuel relatives a cette commande
+
+
+103.2 Traitement de flux de type texte avec des filtres
+
+Envoi de fichiers textes ou de sorties de commandes à des filtres textuels pour les modifier en utilisant des commandes UNIX appartenant au paquetage GNU textutils. 
+
+
+#cat
+Affiche le contenu d'in fichier texte
+#less
+Affiche le contenu d'in fichier texte avec possibilite de naviguer entre les lignes.
+
+#head
+Affiche les premieres lignes d'un fichier texte
+
+#tail
+Affiche les dernieres lignes d'un fichier texte 
+
+#zcat
+Affiche le contenu d'un fichier gz.
+
+#bzcat
+Affiche le contenu d'un fichier compresse de format bz2
+
+ #xzcat
+ Affiche le comtenu d'un dossier compresse
+
+Statistiques des fichiers texte
+
+#nl
+Affiche le nombre de lignes d'un fichier texte
+
+#wc
+Affiche le nombre de mots d'un fichier
+
+#od
+Affiche un fichier texte en mode octal
+
+Message Digests
+
+#md5sum
+Calcule la somme de compression d'un fichier base sur MD5 exple: 1) md5sum text.txt 2)Modifier le fichier 3) verifier par $md5sum -c text.txt
+
+#sha256sum
+Calcule la somme de compression d'un fichier base sur SHA256
+
+MANIPULATION DE TEXTE
+
+#sort 
+Permet de trier les lignes d'un fichier texte exple $sort -n text.txt
+$sort -t "," -k2 text.txt(trie par ordre alphabetique le second element delimite par le symbole ",")
+
+#uniq
+Eliminer les lignes dupliquées dans un fichier trié. Exple: $uniq -c text.txt(affiche le nombre d'occurence élément)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
