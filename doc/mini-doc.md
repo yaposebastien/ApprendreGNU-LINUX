@@ -491,15 +491,16 @@ Statistiques des fichiers texte
 Affiche le nombre de lignes d'un fichier texte
 
 #wc
-Affiche le nombre de mots d'un fichier
+Affiche le nombre de mots d'un fichier exple: $wc -w text.txt
+wc -l text.txt(affiche le nombre de lignes)
 
 #od
-Affiche un fichier texte en mode octal
+Afficher le contenu d'un fichier en octal ou sous d'autres formats.  
 
 Message Digests
 
 #md5sum
-Calcule la somme de compression d'un fichier base sur MD5 exple: 1) md5sum text.txt 2)Modifier le fichier 3) verifier par $md5sum -c text.txt
+Calcule la somme de compression d'un fichier base sur MD5 exple: 1) md5sum text.txt > text.md5 2)Modifier le fichier 3) verifier par $md5sum -c text.md5
 
 #sha256sum
 Calcule la somme de compression d'un fichier base sur SHA256
@@ -508,10 +509,97 @@ MANIPULATION DE TEXTE
 
 #sort 
 Permet de trier les lignes d'un fichier texte exple $sort -n text.txt
-$sort -t "," -k2 text.txt(trie par ordre alphabetique le second element delimite par le symbole ",")
+$sort -t "," -k2 text.txt(trie par ordre alphabetique le second element k2 delimite par le symbole ",")
 
 #uniq
 Eliminer les lignes dupliquées dans un fichier trié. Exple: $uniq -c text.txt(affiche le nombre d'occurence élément)
+exple: uniq --group text.txt(Affiche les entrees identiques en les separant en groupe)
+
+#tr
+Transposer ou éliminer des caractères. Exple: cat text.txt | tr ',' ':'(remplace tous les caracteres , par :)
+
+#cut
+Supprime une partie de chaque ligne d'un fichier. Exple: $cut -d ':' /etc/passwd -f1
+
+#paste
+Regrouper les lignes de différents fichiers. exple: paste -d '-' text1.txt text2.txt(Regroupe ces deux fichiers en separant leur contenu respectif par -)
+
+#sed
+sed est un éditeur de flux. Un éditeur de flux est utilisé pour effectuer des transformations de texte basiques sur un flux d'entrée (un fichier ou l'entrée d'un tube).
+exple: sed 's/windows/gnu-linux/g' text.txt(Remplace tous les windows par gnu-linux).
+L'option -i de sed permet de modifier le fichier permanemment.
+
+#split
+Découper un fichier en différentes partie.  Exple: $split -b 100 text.txt(Divise le fichier text.txt en plusieurs fichiers de 100 bytes)
+$split -d --verbose -n2 text.txt(Cree deux fichiers n2 dont le nom respectera un ordre numerique -d --verbose pour afficher les details.)
+
+103.3 Gestion élémentaire des fichiers[Poids=4]
+
+-/- Copie, déplacement et suppression des fichiers ou des répertoires individuellement.
+-/- Copie récursive de plusieurs fichiers et répertoires.
+-/- Suppression récursive de fichiers et répertoires.
+-/- Utilisation simple et avancée des caractères génériques (wildcard) dans les commandes.
+-/- Utilisation de find pour localiser et agir sur des fichiers en se basant sur leurs types, leurs tailles ou leurs temps (de création, modification ou accès).
+-/- Utilisation des commandes tar, cpio et dd. 
+
+#ls
+ls, dir, vdir - Afficher le contenu d'un répertoire.
+Exple: ls -lR /etc/ (Affiche le dossier et ses sous-dossiers) 
+
+#touch
+Modifier l'horodatage d'un fichier. Exple: touch -m text.txt(Change l'horodatage du fichier au temps courant)
+
+#cp
+
+#rm
+
+#mv
+
+#file
+Déterminer le type d'un fichier.
+
+Manipulation de repertoires
+---------------------------
+
+#cd
+Permet d'acceder a un repertoire Exple: $cd - ( Permet de retourner au repertoire precedent si la variable $OLDPWD est configuree)
+
+#mkdir
+Créer des répertoires. Exple: $mkdir -p dossier/sous-dossier(Permet de creer dossier et son sous-dossier)
+
+#rmdir
+Permet de supprimer un dossier vide. Exple: $rm -r (Permet de supprimer un dossier non vide)
+
+#dd
+Copie un fichier (par défaut, depuis l'entrée standard vers la sortie standard) en permettant de sélectionner la taille de bloc, et d'effectuer des conversions. 
+Exple: $dd if=/dev/sda of=/home/yankees/sauvegarde.img count=1 bs=512(Permet de faire la sauvegarde de /dev/sda en effectuant cette operation par block de 512 bytes)
+       $dd if=/dev/sr0 of=/home/yankee/cdimage.iso (Permet de sauvegarde le contenu du CD dans un fichier cdimage.iso)
+       N.B: Vous pouvez restorer votre sauvegarde en permutant les valeurs de if and of.
+
+#find
+Rechercher des fichiers dans une hiérarchie de répertoires.
+Exple: $find / -name "test"(Recherche dans le repertoire / tous les fichiers et dossiers contenant 'test')
+       $find / -atime 10 (Recherche tous les fichiers qui ont ete modifie pendant ces dix dernieres heures)
+       $find / -cmin 5 (Permet de rechercher tous les fichiers et dossiers modifies ces cinq dernieres minutes )
+       $find /var -name "*.log" -group nginx (Permet de rechercher dans le repertoire /var tous les fichiers ayant l'extension .log modifies par le groupe nginx)
+       $find /home/usr/bin -name "*.sh" -exec cp -f {} /home/user/sauvegarde/bin \; (Permet de rechercher tous les fichiers .sh et excecute la commande de copie de ses fichiers dans le second repertoire indique).
+
+
+
+Compression/Decompression de fichiers et dossiers
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
