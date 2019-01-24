@@ -570,11 +570,6 @@ Créer des répertoires. Exple: $mkdir -p dossier/sous-dossier(Permet de creer d
 #rmdir
 Permet de supprimer un dossier vide. Exple: $rm -r (Permet de supprimer un dossier non vide)
 
-#dd
-Copie un fichier (par défaut, depuis l'entrée standard vers la sortie standard) en permettant de sélectionner la taille de bloc, et d'effectuer des conversions. 
-Exple: $dd if=/dev/sda of=/home/yankees/sauvegarde.img count=1 bs=512(Permet de faire la sauvegarde de /dev/sda en effectuant cette operation par block de 512 bytes)
-       $dd if=/dev/sr0 of=/home/yankee/cdimage.iso (Permet de sauvegarde le contenu du CD dans un fichier cdimage.iso)
-       N.B: Vous pouvez restorer votre sauvegarde en permutant les valeurs de if and of.
 
 #find
 Rechercher des fichiers dans une hiérarchie de répertoires.
@@ -588,6 +583,39 @@ Exple: $find / -name "test"(Recherche dans le repertoire / tous les fichiers et 
 
 Compression/Decompression de fichiers et dossiers
 -------------------------------------------------
+
+#dd
+Copie un fichier (par défaut, depuis l'entrée standard vers la sortie standard) en permettant de sélectionner la taille de bloc, et d'effectuer des conversions. 
+Exple: $dd if=/dev/sda of=/home/yankees/sauvegarde.img count=1 bs=512(Permet de faire la sauvegarde de /dev/sda en effectuant la copie du premier block de 512 bytes qui en realite represente notre master boot record (MBR))
+       $dd if=/dev/sr0 of=/home/yankee/cdimage.iso (Permet de sauvegarde le contenu du CD dans un fichier cdimage.iso)
+       $dd if=/dev/urandom of=fichier_test bs=1024k count=10(Permet la copie de donnees arbitraire de 1024k=1M * 10 = 10MB dans le fichier fichier_test )
+       N.B: Vous pouvez restorer votre sauvegarde en permutant les valeurs de if and of.
+
+#tar
+la version GNU de l'utilitaire tar de gestion d'archives. 
+Exple: $tar -cf dossier_compresse.tar dossier_a_compresse/ (Permet de creer un fichier compresse) 
+       $tar -t dossier_compresse.tar (Permet de lister le contenu de notre dossier compresse)
+       $tar -xf dossier_compresse.tar (Permet de decompresse notre fichier)
+       $tar -czf dossier_compresse.tar.gz dossier_a_compresse/ (Permet de creer un fichier compresse de .gz avec l'algorithme de compression bzip)
+       $tar -cvjf dossier_compresse.tar.bz2 /home/yankees/ (Permet de creer un fichier compresse de type bz2 de tout le dossier de l'utilisateur yankees) 
+
+#gzip
+Compacter ou décompacter des fichiers.  
+Exple: $gzip dossier_a_compresse (Permet de compacter notre dossier)
+       
+#gunzip
+#bzip2
+#bunzip2
+
+#xz
+Nouvel utilitaire de compression et decompression sous GNU/Linux avec de meilleures performances
+Exple: $xz dossier_a_compresse (Compresse un dossier)
+
+#unxz
+Permet de decompresser un fichier de type .xz
+
+
+
 
 
 
