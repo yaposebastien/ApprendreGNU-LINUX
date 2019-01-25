@@ -578,6 +578,12 @@ Exple: $find / -name "test"(Recherche dans le repertoire / tous les fichiers et 
        $find / -cmin 5 (Permet de rechercher tous les fichiers et dossiers modifies ces cinq dernieres minutes )
        $find /var -name "*.log" -group nginx (Permet de rechercher dans le repertoire /var tous les fichiers ayant l'extension .log modifies par le groupe nginx)
        $find /home/usr/bin -name "*.sh" -exec cp -f {} /home/user/sauvegarde/bin \; (Permet de rechercher tous les fichiers .sh et excecute la commande de copie de ses fichiers dans le second repertoire indique).
+       $find / . -ctime 1 (Permet de rechercher tous les fichiers modifies hier, periode de 24 c-a-d deux jours ===> ctime 2)
+       $find /home/yankees -newer passwd (Permet d'afficher tous les fichiers crees plus recent que passwd)
+       $find /home/yankees -empty (Permet de rechercher tous les dossiers vides dans le repertoire indique)
+       $find /home/yankees -empty -type f (Permet de rechercher tous les fichiers vide dans le repertoire indique)
+       $find /home/yankees -empty -type -exec rm -f {} \; (Permet de rechercher tous les fichiers vides et les supprimes)
+       $find /home/yankees -name "*.tar.*" -exec cp -v {} /home/yankees/liste_fichiers_compresses \;(Permet de rechercher la liste de tous les fichiers compresses contenant tar et copie leurs noms dans le fichier liste_fichiers_compresses)
 
 
 
@@ -613,6 +619,21 @@ Exple: $xz dossier_a_compresse (Compresse un dossier)
 
 #unxz
 Permet de decompresser un fichier de type .xz
+
+File Globbing
+-------------
+
+*(Tous les caracteres possibles)
+Exple: $ls *.txt(Recherche tous les caracteres possible situes avant .txt)
+Exple: $ls text*.(Recherche tous les caracteres possible apres text)
+
+?(un seul caractere possible)
+Exple: $ls ?ext.txt(Recherche un fichier dont le nom commence par la lettre t)
+       $ls ??xt.txt
+       $ls [Tt]*.txt(Recherche tous les fichiers commencant par T ou t suivis de toutes les combinaisons possibles mais se terminant par.txt)
+       $ls [Dd]ocument[Rr]apport200[0-9]?2019*
+[^abc](Tous les fichiers ne commencant pas a mais contenant bc)
+
 
 
 
