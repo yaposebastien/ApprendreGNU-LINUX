@@ -663,7 +663,8 @@ Exple: $ls -ld /usr/share/doc/lib[Xx]* | tee liste_dossiers_libx.txt(Affiche tou
 construire et exécuter des lignes de commandes à partir de l'entrée standard.
 Exple: $ find /home/yankees/ -empty | xargs rm -rf (Recherche tous les dossiers et fichiers vides et les supprime avec la commande xargs) 
        $ grep -l "DB" /home/yankees/Documents/TUTORIALS/*.sql | xargs -I {} mv {} /home/yankees/Documents/TUTORIALS/BAK/ (Affiche tous les fichiers ayant pour extension .sql contenant DB et les copier dans le dossier BAK)
-       $find ~ -name "*.sh" | xargs ls -al > scripts.txt
+       $find ~ -name "*.sh" | xargs ls -al > scripts.txt()
+
 
 
 
