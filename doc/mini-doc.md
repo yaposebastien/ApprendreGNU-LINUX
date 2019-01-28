@@ -654,6 +654,18 @@ Exple: $cat /var/log/nginx | more
        $cat /var/log/auth.log 2> /dev/null > erreur.txt(Ne pas afficher l'erreur mais plutot le sauvegarder dans un fichier erreur.txt)
        $cat /var/log/auth.log > /dev/null 2>&1 (Ne pas afficher l'erreur et la sortie standard de cette commande)
 
+#tee
+Copier l'entrée standard sur la sortie standard et dans un fichier.
+Exple: $ls -ld /usr/share/doc/lib[Xx]* | tee liste_dossiers_libx.txt(Affiche tous les dossiers contenant libx or libX mais sauvegarder le resultat de la commande dans le fichier)
+       $ls -ld /usr/share/doc/lib[Xx]* | tee liste_dossiers_libx.txt | sort -r | tee liste_dossiers_libx_renverses.txt(Plusieurs tee )
+
+#xargs
+construire et exécuter des lignes de commandes à partir de l'entrée standard.
+Exple: $ find /home/yankees/ -empty | xargs rm -rf (Recherche tous les dossiers et fichiers vides et les supprime avec la commande xargs) 
+       $ grep -l "DB" /home/yankees/Documents/TUTORIALS/*.sql | xargs -I {} mv {} /home/yankees/Documents/TUTORIALS/BAK/ (Affiche tous les fichiers ayant pour extension .sql contenant DB et les copier dans le dossier BAK)
+       $find ~ -name "*.sh" | xargs ls -al > scripts.txt
+
+
 
 
 
