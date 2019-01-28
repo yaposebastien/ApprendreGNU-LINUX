@@ -635,7 +635,24 @@ Exple: $ls ?ext.txt(Recherche un fichier dont le nom commence par la lettre t)
 [^abc](Tous les fichiers ne commencant pas a mais contenant bc)
 
 
+103.4 Utilisation des flux, des tubes et des redirections[Poids=4]
 
+-/-Redirection de l'entrée standard, de la sortie standard et de l'erreur standard.
+-/-Connexion de la sortie d'une commande à l'entrée d'une autre commande.
+-/-Utilisation de la sortie d'une commande comme paramètres d'une autre commande.
+-/-Envoi simultané du résultat d'une commande vers la sortie standard et vers un fichier. 
+
+Redirection de  la sortie standard(stdout -- 0) : >, >>
+Redirection de l'entrée standard(stdin -- 1) : >, |
+Redirection de l'erreur standard(stderr -- 2) : 2>
+
+Exple: $cat /var/log/nginx | more
+       $find /user -name "*.sh" > sortie.txt
+       $find /user -name "*.txt" >> sortie.txt
+       $cat < sortie.txt <==> cat sortie.txt
+       $cat /var/log/auth.log 2> /dev/null(Afficher le contenu du fichier auth.log mais ne pas afficher tous messages d'erreur de cette commande seul root)
+       $cat /var/log/auth.log 2> /dev/null > erreur.txt(Ne pas afficher l'erreur mais plutot le sauvegarder dans un fichier erreur.txt)
+       $cat /var/log/auth.log > /dev/null 2>&1 (Ne pas afficher l'erreur et la sortie standard de cette commande)
 
 
 
