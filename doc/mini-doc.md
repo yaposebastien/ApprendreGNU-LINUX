@@ -666,6 +666,26 @@ Exple: $ find /home/yankees/ -empty | xargs rm -rf (Recherche tous les dossiers 
        $find ~ -name "*.sh" | xargs ls -al > scripts.txt()
 
 
+103.5 Création, contrôle et interruption des processus[Poids=4]
+
+-/-Exécution de tâches au premier plan et en arrière plan.
+-/-Indiquer à un programme qu'il doit continuer à s'exécuter après la déconnexion.
+-/-Contrôle des processus actifs.
+-/-Sélection et tri des processus à afficher.
+-/-Envoi de signaux aux processus. 
+
+Notions basiques d'un processus
+
+#ps
+ Afficher l'état des processus en cours. 
+ Exple: $ ps -u nomUtilisateur (Affiche tous les processus inities par un utilisateur)
+        $ps -eH (Affiche tous les processus mais de facon hierachique)
+        $ps -efH (Affiche tous les processus avec leurs arguments)
+N.B: Toutes les infos de ps proviennent de /proc
+
+
+
+
 
 
 
