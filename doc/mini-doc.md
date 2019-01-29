@@ -679,10 +679,42 @@ Notions basiques d'un processus
 #ps
  Afficher l'état des processus en cours. 
  Exple: $ ps -u nomUtilisateur (Affiche tous les processus inities par un utilisateur)
-        $ps -eH (Affiche tous les processus mais de facon hierachique)
-        $ps -efH (Affiche tous les processus avec leurs arguments)
+        $ ps -eH (Affiche tous les processus mais de facon hierachique)
+        $ ps -efH (Affiche tous les processus avec leurs arguments)
 N.B: Toutes les infos de ps proviennent de /proc
 
+Contrôle des processus
+----------------------
+
+#uptime
+Affiche sur une ligne les informations suivantes : L'heure actuelle, la durée depuis laquelle le système fonctionne, le nombre d'utilisateurs actuellement connectés, et la charge système moyenne pour les 1, 5, et 15 dernières minutes. 
+
+#free
+Afficher les quantités de mémoires libres et utilisées. Exple: $ free -h (Affiche de facon claire la taille de la memoire, tampon aussi)
+
+#pgrep
+Affiche tous les processus actifs et leurs PID selon votre critere de recherche.
+Exple: $ pgrep sshd
+       $ pgrep -a sshd
+       $ pgrep -u nomUtilisateur sshd
+       $ pgrep -au nomUtilisateur (Affiche tous les processus actifs de cet utilisateur avec les details)
+
+#kill
+Envoyer un signal à un processus.  
+
+ Les signaux standards
+ SIGKILL       9       Term    Kill signal (Termine de facon violente un processus)
+ SIGTERM      15       Term    Termination signal (Tue proprement un processus en nettoyant ses fichiers, etc)
+
+Exple: $ sudo kill PID 
+       $ kill -l (Affiche tous les signaux possibles)
+       $ sudo kill -9 PID
+       $ sudo kill -15 PID
+
+#pkill
+Verifie ou envoie un signal a un processus en fonction du nom ou encore d'autres parametres de recherche.
+Exple: $ sudo pkill httpd (Termine le processus httpd et les sous-processus)
+       $ sudo pkill -x httpd (Termine seulement le processus ayant le httpd et non les sous-processus de ce dernier)
 
 
 
