@@ -716,6 +716,26 @@ Verifie ou envoie un signal a un processus en fonction du nom ou encore d'autres
 Exple: $ sudo pkill httpd (Termine le processus httpd et les sous-processus)
        $ sudo pkill -x httpd (Termine seulement le processus ayant le httpd et non les sous-processus de ce dernier)
 
+#killall
+Envoyer un signal à des processus indiqués par leurs noms.  
+Exple: $ sudo killall sshd
+       $ sudo killall -s 15 apache2
+
+#watch
+Excecute une commande de facon periodique et affiche la sortie.
+Exple: $ watch -n 5 date (Affiche la date chaque 5 secondes)
+
+#screen
+Est un « multiplexeur de terminaux » permettant d'ouvrir plusieurs terminaux dans une même console, de passer de l'un à l'autre et de les récupérer plus tard. 
+Scenario:
+        $ screen -S htop
+        $ htop
+        ctrl + a + d (Pour se detacher de la session)
+        $ screen -S top
+        $ top
+        ctrl + a + d (Pour se detacher de la session)
+        $ screen -ls (Affiche toutes les sessions)
+        $ screen -r [numero_session]
 
 
 
