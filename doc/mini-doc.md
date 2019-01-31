@@ -759,8 +759,40 @@ Exécute la commande en arrière-plan
 #fg
 Exécute la commande en avant-plan
 
-Comprendre et Changer la priorite des processus
------------------------------------------------
+
+103.6 Modification des priorités des processus[Poids=2]
+
+-/-Connaissance de la priorité par défaut affectée à un nouveau processus.
+-/-Exécution de programme avec une priorité plus haute ou plus basse que celle par défaut.
+-/-Changement de la priorité d'un processus en cours d'exécution. 
+
+## -20 (Valeur la plus elevee d'une priorité)
+## 19 (La plus faible valeur d'une priorité )
+## 0 (Valeur par defaut d'une priorité)
+## Modifiable par le root
+
+##N.B: $ps -o pid,nice,cmd,user (Permet de specifier les details de la commande ps)
+
+#nice
+Exécuter un programme avec une priorité d'ordonnancement modifiée. 
+Scenario
+        $ ps -o pid,nice,cmd,user
+        $ watch -n 5 date & (Permet d'executer la commande date chaque 5 secondes mais en arrière-plan )
+        $ ps -o pid,nice,cmd,user (Afficher de nouveau tous les processus)
+        $ kill -9 PID (Arreter le processus watch)
+        $ nice -n 5 watch -n 5 date & (Permet d'executer la commande date chaque 5 secondes mais en arrière-plan mais cette en diminuant son niveau de priorité à 5 )
+
+#renice
+Modifier un programme en cours d'exécution avec une nouvelle priorité d'ordonnancement.
+Exple: $ sudo renice -n -3 PID
+
+#top
+Exple: $ top -i (Affiche les processus actifs)
+       $ top -d [temps_secondes] (Affiche les processus actifs chaque secondes definis)
+
+
+
+
 
 
 
