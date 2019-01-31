@@ -736,6 +736,34 @@ Scenario:
         ctrl + a + d (Pour se detacher de la session)
         $ screen -ls (Affiche toutes les sessions)
         $ screen -r [numero_session]
+        $ exit (Pour terminer la session)
+Scenario: avec des connexion ssh des servers
+
+#tmux
+Est un « multiplexeur de terminaux » permettant d'ouvrir plusieurs terminaux dans une même console.
+
+ctrl + d + b (Pour se detacher d'une session tmux)
+$ tmux ls (Affiche toutes les sessions)
+$ tmux attach-session -t [numero_session]
+
+#nohup
+Exécute la commande désirée en ignorant les signaux HANGUP (déconnexion), avec une priorité d'ordonnancement incrémentée de 5, afin que cette commande continue à s'exécuter en arrière-plan après la déconnexion de l'utilisateur. 
+Exple: $ nohup ping www.attecoube.net & (Effectue la commande ping meme en etant deconnecte de la session terminal et cree un fichier [nohup.out]pour sauvegarder la sortie de cette commande)
+
+#jobs
+Permet de lister tous les processus s'exécutant en arrière-plan.
+
+#bg
+Exécute la commande en arrière-plan
+
+#fg
+Exécute la commande en avant-plan
+
+Comprendre et Changer la priorite des processus
+-----------------------------------------------
+
+
+
 
 
 
