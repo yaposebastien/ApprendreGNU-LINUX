@@ -791,6 +791,48 @@ Exple: $ top -i (Affiche les processus actifs)
        $ top -d [temps_secondes] (Affiche les processus actifs chaque secondes definis)
 
 
+103.7 Recherche dans des fichiers texte avec les expressions rationnelles[Poids=3]
+
+-/-Création d'expressions rationnelles simples contenant différents éléments de notation.
+-/-Utilisation des expressions rationnelles dans des commandes pour effectuer des recherches dans une arborescence ou dans le contenu d'un fichier. 
+
+.(Represente un seul charactere)
+^(Represente le debut d'une ligne)
+? (Represente un caractere optionel, mais seulement un seul)
++ (doit correspondre a au moins un seul caractere mais peut avoir plusieurs valeurs )
+{#} (correspond au nombre de fois d'un caractere)
+{#,} (Correspond a un caractere ou plus)
+{#,#} (correspond a une occurence minimum ou maximum de fois exple {1,3} min=1 max=2)
+\> (mot qui commence par ce qui suit apres ces symboles)
+^ (mot qui commence par definit apres ce symbole)
+[^] (mot qui ne contient pas cette lettre mentionnee apres le symbole)
+$(Utilise pour la fin d'une ligne)
+[abc](Recherche d'une charactere special)
+*(Rechercher plus d'un caractere precedent le sysmbole)
+
+Exple: $ grep ^nk /etc/passwd (Recherche toutes les lignes commencant par nk)
+       $ grep nke$ /etc/passwd (Recherche toutes les lignes se terminant par nke)
+       $ grep ^[Aa].[Aa][^h]
+
+Utilisation des outils pour les expressions rationnelles
+
+#sed
+sed est un éditeur de flux. Un éditeur de flux est utilisé pour effectuer des transformations de texte basiques sur un flux d'entrée (un fichier ou l'entrée d'un tube).
+sed est un éditeur de flux. Un éditeur de flux est utilisé pour effectuer des transformations de texte basiques sur un flux d'entrée (un fichier ou l'entrée d'un tube).
+
+Exple:
+$ cat /etc/passwd | sed '/sync$/p' (Affiche toutes les lignes qui n'ont pas 'sync' comme fin de ligne)
+
+#egrep
+C'est une variante de la commande grep mais sans l'utilisation de l'option -E qui favorise l'utilisation d'expressions rationnelles.
+Exple: $ egrep  'nologin$' /etc/passwd (Affiche toutes les lignes dont la fin contiennent 'nologin')
+       $ egrep -c 'nologin$' /etc/passwd (Affiche uniquement le nombre d'occurences de lignes dont leur fin est marque par 'nologin')
+       $ egrep 'bash$|^nke' /etc/passwd (Affiche toues les lignes se terminant par 'nologin' et commencant par 'nke')
+       $ fgrep -f liste_caracteres.txt /etc/passwd (Permet de rechercher toutes les lignes contenant les caracteres specifies dans le ficher liste_caracteres.txt)
+       $ grep ^http[^x] /etc/services > http-services (Recherche toutes les lignes commencant par http mais ne contenant pas 'x' a la fin )
+       $ grep ^ldap.[^a] /etc/services > ldap.txt (Recherche toutes les lignes commencant par ldap mais la cinquieme caractere ne commence pas par 'a')
+       $ grep -v services$ https-services.txt > http-updated.txt (Copie l'oppose de toutes les lignes contenant 'services' a la fin)
+
 
 
 
