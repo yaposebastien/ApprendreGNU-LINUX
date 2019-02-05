@@ -833,14 +833,92 @@ Exple: $ egrep  'nologin$' /etc/passwd (Affiche toutes les lignes dont la fin co
        $ grep ^ldap.[^a] /etc/services > ldap.txt (Recherche toutes les lignes commencant par ldap mais la cinquieme caractere ne commence pas par 'a')
        $ grep -v services$ https-services.txt > http-updated.txt (Copie l'oppose de toutes les lignes contenant 'services' a la fin)
 
+103.8 Édition de fichiers texte avec vi
 
+-/-Déplacement dans un document édité avec vi.
+-/-Utilisation des modes de base de vi.
+-/-Insertion, modification, suppression, copie et recherche de texte. 
 
+#Mode Commande
+        i - invoke the 'insert mode' at the current cursor position where you can begin typing in the document
+        • I - move to the beginning of the current line and invoke 'insert mode'
+        • a - invoke insert mode, placing the cursor one character to the right of the current position (append)
+        • A - move to the end of the current line, placing the cursor one character to the right of the ending position (line append)
+        • o - insert a new line under the current line, place the cursor in the first position on the new line in 'insert mode'
+        • O - insert a new line above the current line, place the cursor in the first position of the newline in 'insert mode'
+        • c[option] - change the text at the current position
+        • cw - change the word at the current position
+        • cc - change the line at the current position
+        • c$ - change from the current position to the end of the line
+        • r - replace the character at the current position
+        • R - replace text on the same line until you escape the 'insert mode' or until you reach end of line
+        • x - delete the character after the cursor
+        • X - delete the character before the cursor
+        • dw - delete the word after the cursor
+        • dd - delete the entire line the cursor is on
+        • D - delete the text from the current cursor to end of line
+        • dL - delete the text from the current cursor to the end of the current screen
+        • dG - delete the text from the current cursor to the end of the file
+        • d^ - delete all text from the beginning of line to the current cursor
+        • u - undo the last operation/change
+        • yy - copy the current line to the buffer (often called yank)
+        •yw - copy from current cursor to end of current word
+        • p - paste contents of the buffer after the cursor
+        • P - paste the contents of the buffer before the cursor
+        • :e! - undo ALL changes since the last time the file was saved to disk
+        • :w - write the file to disk (save)
+        • :q - quit the editor (will warn you if the file has changed and not saved)
+        • :q! - quit right now, don't worry about if it was changed and saved
+        • :x - shortcut for save and exit
+        • ZZ - shortcut for save and exit
 
+#Raccourci pour le mode Navigation 
+        • h - one character left
+        • j - one line down
+        • k - one line up
+        • l - one character right
 
+#Notes: any of the above can be repeated by putting the desired number in front
+        •For example - 3k (would move 3 lines up)
+                        2h (would move 2 characters left)
+        • ctl-u - move back one half page
+        • ctl-b - move back one page
+        • ctl-d - move forward one half page
+        • ctl-f - move forward one page
+        • ctl-G - show the name of the file, lines and position in percentage of the total file length
+        • [#]G - move directly to the indicated line
+        • [#]W - move 12 words to the right
+#Mode Recherche
+        • Must be in command mode (press ESC key to make sure you are in command mode)
+        • /[string] - search from cursor position forward for 'string'
 
+        •?[string] - search from cursor position back for 'string'
 
+        •N - when used after a search, will find the 'next' occurence of said 'string' in indicated direction
 
+#Remplacement 
+        • must be in command mode (press ESC key to make sure you are in command mode)
+        • sed-like syntax
+        • s - substitute (in the current line)
+        %s - substitute (in the entire file)
+        • /[value to find] - what to search for
+        • /[value to substitute]/ - what to replace with
+        • g - optional, will replace ALL occurrences rather that just the first
+        •
+        For example - :s/Mar/Apr/g (Remplacer toutes les occurences de Mar par Apr)
 
+#Execution de commande
+        •:! [cmd] - run the indicated command on the command line
+
+TOPIC 104 : Disques, systèmes de fichiers Linux , arborescence de fichiers standard (FHS) 
+104.1 Création des partitions et des systèmes de fichiers[Poids=2]
+-/-Gestion des tables de partition MBR
+-/-Utilisation des différentes commandes mkfs pour le paramétrage des partitions et la création des différents systèmes de fichiers comme :
+        -ext2/ext3/ext4
+        -XFS
+        -VFAT
+-/-Sensibilisation à ReiserFS et Btrfs
+-/-Connaissance de base de gdisk et parted avec les partitions GPT.
 
 
 
