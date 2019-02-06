@@ -909,9 +909,11 @@ Exple: $ egrep  'nologin$' /etc/passwd (Affiche toutes les lignes dont la fin co
 
 #Execution de commande
         •:! [cmd] - run the indicated command on the command line
-
+2
 TOPIC 104 : Disques, systèmes de fichiers Linux , arborescence de fichiers standard (FHS) 
+
 104.1 Création des partitions et des systèmes de fichiers[Poids=2]
+
 -/-Gestion des tables de partition MBR
 -/-Utilisation des différentes commandes mkfs pour le paramétrage des partitions et la création des différents systèmes de fichiers comme :
         -ext2/ext3/ext4
@@ -919,6 +921,69 @@ TOPIC 104 : Disques, systèmes de fichiers Linux , arborescence de fichiers stan
         -VFAT
 -/-Sensibilisation à ReiserFS et Btrfs
 -/-Connaissance de base de gdisk et parted avec les partitions GPT.
+
+
+Types de Partitions
+-------------------
+8200 - Linux swap
+8300 - Linux(ext2, ext3, etc...)
+8301 - Partition linux reserve
+8e00 - Linux LVM
+fd00 - Linux RAID
+
+Types de systemes de fichiers
+-----------------------------
+
+ext2 - Linux extended filesystem (legacy)
+ext3 - Linux extended filesystem with journaling (logging capability for easier and quicker recovery from disk issues)
+ext4 - Linux extended filesystem with journaling (including performance enhancements over ext3)
+xfs - extent filesystem, enhanced performance, particularly on filesystems with many smaller files
+ReiserFS - one of the first filesystems to introduce journaling and offer dynamic resizing capabilities
+btrfs - builds on ReiserFS features while adding additional admin features while increasing performance on larger filesystems
+iso9660 - filesystem specific to CD-ROM
+udf - filesystem specific to DVD
+vfat - older DOS partition type (used for compatibility with other operating systems)
+
+
+#fdisk 
+fdisk est un programme piloté par menu utilisé pour la création et la manipulation de tables de partitions. Il comprend les tables de partitions de type DOS, et les labels de disque BSD ou SUN.
+
+#parted
+
+GPT Partitions
+
+#gdisk
+
+Swap Partitions
+
+#mkswap
+Configure une partition en mode swap.
+Exple: # mkswap -L BCKSWAP /dev/sda10 (Cree une partition swap nomme BCKSWAP sur la partition /dev/sda10)
+
+#swapon
+Permet d'activer une partition swap pour usage. Exple: # swapon -L BCKSWAP (Active notre partition swap nommee BCKSWAP)
+
+#swapoff
+Permet de desactiver une partition swap. Exple: # swapoff -L BCKSWAP 
+
+#mkfs
+mkfs est utilisé pour formater un système de fichiers Linux sur un périphérique, généralement une partition de disque dur.
+Exple: # mkfs -t ext4 /dev/sda12 (Permet de creer un systeme de fichier de type ext4 sur la partition /dev/sda12)
+       #mkfs.ext4 -L SvrUbuntu /dev/sda12 (Permet de creer un systeme de fichier de type ext4 nomme SrvUbuntu sur la partition /dev/sda12)
+
+
+104.2 Maintenance de l'intégrité des systèmes de fichiers[Poids=2]
+
+-/-Vérification de l'intégrité des systèmes de fichiers.
+-/-Contrôle de l'espace et des inodes libres.
+-/-Réparation de problèmes élémentaires sur les système de fichiers. 
+
+
+
+
+
+
+
 
 
 
