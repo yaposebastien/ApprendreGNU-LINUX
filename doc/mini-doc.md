@@ -978,6 +978,71 @@ Exple: # mkfs -t ext4 /dev/sda12 (Permet de creer un systeme de fichier de type 
 -/-Contrôle de l'espace et des inodes libres.
 -/-Réparation de problèmes élémentaires sur les système de fichiers. 
 
+#df
+Fournit la quantité d'espace occupé des systèmes de fichiers. 
+Exple: $ df -h (Affiche la quantite dans un format lisible pour u humain)
+       $ df --total -h
+#du
+ affiche la quantité d'espace disque utilisée par chacun des arguments, et pour chaque sous-répertoire des répertoires indiqués en argument.
+ Exple: $ du -h
+        $ du -sh /home (Affiche la quantité totale d'espace du repertoire /home)
+        $ du -h --max-depth=3 /etc/ (Affiche la quantité totale d'espace du repertoire /etc mais en se limitant a trois sous-repertoires)
+
+Notes:
+------
+Tout fichier possède son unique inode. L'inode contient la totalité des informations sur le fichier, sauf le nom et ont tous de la même taille.
+Les informations de l'inode peuvent etre:
+
+    Type de fichier : -,d, l, c, p, b.
+    Droits d'accès : par exemple : rwxr-x---
+    Nombre de liens (physiques) : correspond au nombre de références c'est à dire au nombre de noms.
+    UID : effectif du processus créateur ou affecté par chown.
+    GID : effectif du processus créateur, affecté par chgrp ou hérité du répertoire.
+    Taille du fichier.
+    atime :date de la dernière lecture.
+    mtime :date de la dernière modification.
+    ctime :date de la dernière connexion.
+    Adresse du fichier. 
+
+Exple:
+$ df -i (Permet d'afficher le nombre total d'inodes pour un emplacement)
+$ ls -il (Affiche le numero inode de tous les fichiers et dossiers du repertoire)
+$ du --inode /etc (Affiche le nombre inodes utilises dans le repertoire /etc/)
+
+#fsck
+Est utilisé pour vérifier et optionnellement réparer un ou plusieurs systèmes de fichiers Linux.
+Exple: # fsck -r /dev/sda12 (Permet d'afficher un rapport sur l'etat de cette partition)
+
+#e2fsck
+Est utilisé pour vérifier et optionnellement réparer un ou plusieurs systèmes de fichiers Linux.
+Exple: # e2fsck -f /dev/sda12 (Permet de forcer la verification d'une partition memem si celle semble "clean")
+
+#mk2fs
+Est utilisé pour créer un système de fichiers Linux.
+Exple: # mk2fs -t ext4 -L BACKUP /dev/sdb1 (Permet de creer un système de fichiers de type -ext4 et dont le label est BACKUP)
+
+#tune2fs
+Est utilise pour ajuster les parametres d'un systeme de fichier.
+Exple: # tune2fs -i 4w /dev/sdb1 (Permet de verifier l'integrite du systeme de fichier chaque 4 semaines(w))
+
+#xfs_repair
+Est utilisé pour reparer les systemes de fichiers de type XFS.
+
+#xfs_fs
+Est utilisé pour reorganiser les donnees stockees dans un systeme de fichier de type xfs, similaire a l'utilitaire de defragmentation sous Windows.
+
+#xfs_db
+Est utilisé pour debugger un systeme de fichier xfs
+
+104.3 Montage et démontage des systèmes de fichiers[Poids=3]
+-/-Montage et démontage manuel des systèmes de fichiers.
+-/-Configuration du montage des systèmes de fichiers au démarrage du système.
+-/-Configuration des options de montage des systèmes de fichiers. 
+
+
+
+
+
 
 
 
